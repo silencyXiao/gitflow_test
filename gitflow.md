@@ -11,10 +11,12 @@
 - develop 功能集成分支
 - feature 新功能分支
 
-![Alt text](./1535598956626.png)
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/gitflow_2.png)
 
 > **长期分支：**`git-flow` 模式会预设两个主分支在仓库中：`master` 和 `develop`，它们会存活在项目的整个生命周期中，它们都包含对应的远程分支`origin/master` 和 `origin/develop`；
 > **短期分支：**其他的分支，针对功能的分支 `feature`，针对发行的分支`release`，针对 bug 修复的分支`hotfix`，仅仅只是临时存在的。它们是根据需要来创建的，当它们完成了自己的任务之后就会被删除掉了；
+
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/gitflow_init_1.png)
 
 ### master
 
@@ -41,7 +43,8 @@ master => oringin/master => Jenkins => 生产环境
 
 > `release`分支为新功能上线前和必要的修复的版本预发布
 > `release`分支是基于`develop`分支创建的
-> `release`分支命名使用版本号命名，如`release/1.0.0` > `release`分支只有管理员才能操作，管理员：`毛陆军`
+> `release`分支命名使用版本号命名，如`release/1.0.0`
+> `release`分支只有管理员才能操作，管理员：`毛陆军`
 > 版本发布完成后，将合并到`master`分支，`git-flow`自动以发布版本号打标签，最后删除 `release`分支
 
 ### develop
@@ -62,7 +65,8 @@ develop => oringin/develop=> Jenkins => 测试环境
 
 > `feature`分支为创建新功能需求的分支
 > `feature`分支是基于`develop`分支创建的
-> `feature`分支使用以功能名称，如`feature/admin-login` > `feature`分支功能完成后，合并到`develop`分支
+> `feature`分支使用以功能名称，如`feature/admin-login`
+> `feature`分支功能完成后，合并到`develop`分支
 
 注意：当新功能需求过大时，可在当前`feature`分支上拆分为多个子分支，如`feature/admin-login-front`、`feature/admin-login-end`, 子分支完成后合并到`feature`分支，待功能全部完成后，最终在合并到`develop`分支上
 
@@ -88,11 +92,10 @@ Hotfix branches? [hotfix/]
 
 > 执行`git flow init` 命令时，它将在你的分支上配置了一些命名规则，我们直接使用默认的命名，一步一步地确定下去。
 
-`git flow init` 命令会自动创建 `master`分支（如果不存在）和`develop`分支（如果不存在）
+`git flow init` 命令会自动创建 `master`分支和`develop`分支
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/gitflow_init_2.png)
 
-![Alt text](./1535615650769.png)
-
-### 开始 feature
+### 创建 feature
 
 我们开始开发一个新的功能`admin-login`, 先将当前分支切换至`develop`分支
 `git-flow` 命令：
@@ -107,7 +110,7 @@ $ git flow feature start admin-login
 $ git checkout -b feature/admin-login develop   基于develop分支创建功能分支，并切换至新建的功能分支
 ```
 
-![Alt text](./1535615725418.png)
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/create_feature.png)
 
 ### 完成 feature
 
@@ -126,7 +129,10 @@ $ git merge -no-ff feature/admin-login  把指定的本地分支合并到本地d
 $ git branch -d feature/admin-login     删除本地的指定分支
 ```
 
-![Alt text](./1535616391926.png)
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/finish_feature.png)
+
+`feature`分支从创建到完成的完整图：
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/feature_1.png)
 
 ### 创建 releases
 
@@ -142,7 +148,7 @@ $ git flow release start 1.0.0
 $ git checkout -b release/1.0.0 develop
 ```
 
-![Alt text](./1535619197156.png)
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/release_feature.png)
 
 ### 完成 release
 
@@ -166,6 +172,8 @@ $ git merge –no-ff release/1.0.0             合并release到本地develop
 $ git push origin develop                    更新远程develop
 $ git branch –d release/1.0.0                删除本地release
 ```
+
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/finish_release.png)
 
 ### 创建 hotfix
 
@@ -204,7 +212,7 @@ $ git push origin develop                    更新远程develop
 $ git branch –d hotfix/bug#001               删除本地hotfix
 ```
 
-![Alt text](./1535624626699.png)
+![Alt text](https://cdn.op110.com.cn/lib/imgs/gitflow/hotfix.png)
 
 ## release 发布版本规则
 
